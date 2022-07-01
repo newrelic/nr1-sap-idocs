@@ -1,6 +1,14 @@
 {
   "schemaType": "NERDLET",
   "id": "home",
-  "displayName": "Home",
-  "description": ""
+  "displayName": "IDocs explorer",
+  "description": "IDocs explorer",
+  "context": {
+    "entities": [
+      {
+        "domain": "EXT",
+        "type": "SAP_IDOC"
+      }
+    ]
+  }
 }
