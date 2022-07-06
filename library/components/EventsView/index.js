@@ -114,6 +114,7 @@ const EventsView = ({ accountId, iDoc, selectedIDoc, eventsTimes, eventsTimeInde
             timestamp: item.timestamp,
           }
         });
+        if ('SAPGUI_URL' in item) return window.open(item.SAPGUI_URL, '_blank');
         Toast.showToast({
           title: 'No details available',
           description: 'Details for the event are not available currently',
