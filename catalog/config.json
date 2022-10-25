@@ -1,0 +1,18 @@
+{
+  "tagline": "IDOC Explorer",
+  "repository": "https://github.com/newrelic/nr1-sap-idocs.git",
+  "details": "IDOC Explorer tracks the SAP IDocs (Intermediate Documents) flowing through the SAP system. It also correlates IDocs status changes to other SAP system events such as RFC destination anomalies, Transports, Programming errors, etc.",
+  "keywords": ["visualizations", "sap", "idoc", "process", "workflow", "integration"],
+  "support": {
+    "issues": {
+      "url": "https://github.com/newrelic/nr1-sap-idocs/issues"
+    },
+    "email": {
+      "address": "opensource+nr1-sap-idocs@newrelic.com"
+    },
+    "community": {
+      "url": "https://discuss.newrelic.com/t/new-relic-monitoring-for-sap-solutions-now-available/188447"
+    }
+  },
+  "whatsNew": "\n-Feat: initial release"
+}

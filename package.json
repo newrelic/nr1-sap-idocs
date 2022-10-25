@@ -5,8 +5,8 @@
     "scripts": {
         "start": "nr1 nerdpack:serve",
         "test": "exit 0",
-        "eslint-check": "eslint nerdlets/",
-        "eslint-fix": "eslint nerdlets/ --fix"
+        "eslint-check": "eslint nerdlets/ library/",
+        "eslint-fix": "eslint nerdlets/ library/ --fix"
     },
     "dependencies": {
         "prop-types": "15.7.2",
@@ -23,6 +23,6 @@
         "@semantic-release/changelog": "^6.0.1",
         "@semantic-release/git": "^10.0.1",
         "eslint": "^6.8.0",
-        "prettier": "^2.6.2"
+        "prettier": "^1.19.1"
     }
 }
