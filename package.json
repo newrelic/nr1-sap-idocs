@@ -5,8 +5,8 @@
     "scripts": {
         "start": "nr1 nerdpack:serve",
         "test": "exit 0",
-        "eslint-check": "eslint nerdlets/",
-        "eslint-fix": "eslint nerdlets/ --fix"
+        "eslint-check": "eslint nerdlets/ library/",
+        "eslint-fix": "eslint nerdlets/ library/ --fix"
     },
     "dependencies": {
         "prop-types": "15.7.2",
