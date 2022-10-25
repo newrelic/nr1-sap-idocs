@@ -5,5 +5,5 @@ export const COLORS = {
   RFC_DESTINATIONS: '#54E8CC',
   TRACES: '#840B64',
   TRANSPORTS: '#FF9191',
-  LOGS: '#8A9DE8',
+  LOGS: '#8A9DE8'
 };

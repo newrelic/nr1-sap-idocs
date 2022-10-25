@@ -30,9 +30,8 @@ const DetailNerdlet = () => {
       const transportsQuery = `SELECT count(*) FROM NR_SAP_TRANSPORT ${queryFilters} ${historyTime.query} TIMESERIES`;
       const logsQuery = `SELECT count(*) FROM Log ${queryFilters} ${historyTime.query} TIMESERIES`;
       const rfcDestinationsQuery = `SELECT count(*) FROM NR_SAP_TRFC_STATUS ${historyTime.query} TIMESERIES`;
-      const tracesQuery = `SELECT count(*) FROM DistributedTraceSummary WHERE FUNCTION_NAME = '${
-        iDoc.processFunction || ''
-      }' ${historyTime.query} TIMESERIES`;
+      const tracesQuery = `SELECT count(*) FROM DistributedTraceSummary WHERE FUNCTION_NAME = '${iDoc.processFunction ||
+        ''}' ${historyTime.query} TIMESERIES`;
       const query = gql`
         query IDocsQuery(
           $accounts: [Int!]!
@@ -71,14 +70,14 @@ const DetailNerdlet = () => {
         rfcDestinationsQuery,
         tracesQuery,
         transportsQuery,
-        logsQuery,
+        logsQuery
       };
 
       setLoading(true);
       const {
         loading: loadingResp,
         data: { actor: res } = {},
-        error,
+        error
       } = await NerdGraphQuery.query({ query, variables });
       console.log('detail data', res); // eslint-disable-line no-console
       console.log('detail error', error); // eslint-disable-line no-console
@@ -106,7 +105,7 @@ const DetailNerdlet = () => {
     if (!loading) loadIDocs();
   }, [iDoc, accountId, historyTimeIndex]);
 
-  const updateEventsTimeIndex = (idx) => {
+  const updateEventsTimeIndex = idx => {
     const times = calculateTimeBlock(
       selectedIDoc,
       EVENTS_TIMES[idx].medianMins

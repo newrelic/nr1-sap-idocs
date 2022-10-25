@@ -23,7 +23,7 @@ const CurrentView = ({ iDoc }) => {
       </BlockText>
     </div>
   );
-}
+};
 
 CurrentView.propTypes = {
   iDoc: PropTypes.object

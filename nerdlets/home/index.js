@@ -7,7 +7,7 @@ import {
   NerdGraphQuery,
   ngql as gql,
   usePlatformState,
-  NerdletStateContext,
+  NerdletStateContext
 } from 'nr1';
 import FilterBar from '../../library/components/FilterBar';
 import IDocsList from '../../library/components/IDocsList';
@@ -54,11 +54,11 @@ const HomeNerdlet = () => {
         data: {
           actor: {
             nrql: {
-              results: [{ msgType, sId }],
-            },
-          },
+              results: [{ msgType, sId }]
+            }
+          }
         },
-        error,
+        error
       } = await NerdGraphQuery.query({ query, variables });
       if (error || !msgType || !sId) {
         setLoading(false);
@@ -79,11 +79,11 @@ const HomeNerdlet = () => {
         data: {
           actor: {
             nrql: {
-              results: [{ uniqMsgTypes, uniqStatuses, uniqSysIds }],
-            },
-          },
+              results: [{ uniqMsgTypes, uniqStatuses, uniqSysIds }]
+            }
+          }
         },
-        error,
+        error
       } = await NerdGraphQuery.query({ query, variables });
       if (error || !uniqMsgTypes || !uniqStatuses) {
         setLoading(false);
@@ -109,31 +109,28 @@ const HomeNerdlet = () => {
         'STATUS_GROUP',
         'STATUS_LIGHT',
         'STATUS_TEXT',
-        'SYS_ID',
+        'SYS_ID'
       ];
       const queryFields =
         `${fields.reduce(
           (acc, cur) =>
             `${acc}latest(${cur}) AS ${cur
               .toLowerCase()
-              .replace(/(_[a-z])/g, (m) =>
-                m.toUpperCase().replace('_', '')
-              )}, `,
+              .replace(/(_[a-z])/g, m => m.toUpperCase().replace('_', ''))}, `,
           ''
         )}latest(${
           direction === 'OUTBOUND' ? 'RECEIVER' : 'SENDER'
         }_PORT) AS port, ` +
         `latest(${
           direction === 'OUTBOUND' ? 'RECEIVER' : 'SENDER'
-        }_PORT_RFCDEST) AS rfcDestination`; // 'DOCNUM',
+        }_PORT_RFCDEST) AS rfcDestination`;
 
       variables.nrqlQuery = `SELECT ${queryFields} FROM NR_SAP_IDOC FACET DOCNUM ${queryFilter} ${queryTime} LIMIT MAX`;
       setLoading(true);
-      const {
-        loading: loadingResp,
-        data,
-        error,
-      } = await NerdGraphQuery.query({ query, variables });
+      const { loading: loadingResp, data, error } = await NerdGraphQuery.query({
+        query,
+        variables
+      });
       console.log('data', data); // eslint-disable-line no-console
       console.log('error', error); // eslint-disable-line no-console
       setLoading(loadingResp);
@@ -150,17 +147,17 @@ const HomeNerdlet = () => {
 
   const filteredIDocs = Object.keys(filters).reduce((acc, cur) => {
     if (filters[cur] !== '')
-      acc = acc.filter((elm) => new RegExp(filters[cur], 'i').test(elm[cur]));
+      acc = acc.filter(elm => new RegExp(filters[cur], 'i').test(elm[cur]));
     return acc;
   }, iDocs);
 
   const updateFilters = (name, value) =>
     setFilters({ ...filters, [name]: value });
 
-  const selectHandler = (iDoc) =>
+  const selectHandler = iDoc =>
     navigation.openStackedNerdlet({
       id: 'detail',
-      urlState: { accountId, iDoc, timestamp: iDoc.timestamp },
+      urlState: { accountId, iDoc, timestamp: iDoc.timestamp }
     });
 
   if (accountId === 'cross-account')
