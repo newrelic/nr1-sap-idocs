@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/newrelic/nr1-sap-idocs/compare/v1.0.0...v1.0.1) (2022-10-26)
+
+
+### Bug Fixes
+
+* update screenshots ([1328384](https://github.com/newrelic/nr1-sap-idocs/commit/13283841efe34c7fd1046709d5f5cdd61ad1f15b))
+
 # 1.0.0 (2022-10-26)
 
 
