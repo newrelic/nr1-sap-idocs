@@ -1,6 +1,6 @@
 {
   "schemaType": "NERDLET",
-  "id": "detail",
-  "displayName": "IDoc Details",
-  "description": ""
+  "id": "details",
+  "displayName": "IDOC Details",
+  "description": "View details of a specific IDOC"
 }

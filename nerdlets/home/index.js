@@ -7,7 +7,7 @@ import {
   NerdGraphQuery,
   ngql as gql,
   usePlatformState,
-  NerdletStateContext
+  NerdletStateContext,
 } from 'nr1';
 import FilterBar from '../../library/components/FilterBar';
 import IDocsList from '../../library/components/IDocsList';
@@ -27,7 +27,7 @@ const HomeNerdlet = () => {
   const [{ accountId, timeRange }] = usePlatformState();
 
   useEffect(() => {
-    if (loading || accountId === 'cross-account') return;
+    if (loading) return;
     const query = gql`
       query IDocsQuery($accounts: [Int!]!, $nrqlQuery: Nrql!) {
         actor {
@@ -54,13 +54,14 @@ const HomeNerdlet = () => {
         data: {
           actor: {
             nrql: {
-              results: [{ msgType, sId }]
-            }
-          }
+              results: [{ msgType, sId }],
+            },
+          },
         },
-        error
+        error,
       } = await NerdGraphQuery.query({ query, variables });
       if (error || !msgType || !sId) {
+        console.error('Error loading entity props:', error);
         setLoading(false);
         return;
       }
@@ -79,11 +80,11 @@ const HomeNerdlet = () => {
         data: {
           actor: {
             nrql: {
-              results: [{ uniqMsgTypes, uniqStatuses, uniqSysIds }]
-            }
-          }
+              results: [{ uniqMsgTypes, uniqStatuses, uniqSysIds }],
+            },
+          },
         },
-        error
+        error,
       } = await NerdGraphQuery.query({ query, variables });
       if (error || !uniqMsgTypes || !uniqStatuses) {
         setLoading(false);
@@ -109,7 +110,7 @@ const HomeNerdlet = () => {
         'STATUS_GROUP',
         'STATUS_LIGHT',
         'STATUS_TEXT',
-        'SYS_ID'
+        'SYS_ID',
       ];
       const queryFields =
         `${fields.reduce(
@@ -125,11 +126,11 @@ const HomeNerdlet = () => {
           direction === 'OUTBOUND' ? 'RECEIVER' : 'SENDER'
         }_PORT_RFCDEST) AS rfcDestination`;
 
-      variables.nrqlQuery = `SELECT ${queryFields} FROM NR_SAP_IDOC FACET DOCNUM ${queryFilter} ${queryTime} LIMIT MAX`;
+      variables.nrqlQuery = `SELECT ${queryFields} FROM NR_SAP_IDOC FACET DOCNUM, timestamp ${queryFilter} ${queryTime} LIMIT MAX`;
       setLoading(true);
       const { loading: loadingResp, data, error } = await NerdGraphQuery.query({
         query,
-        variables
+        variables,
       });
       console.log('data', data); // eslint-disable-line no-console
       console.log('error', error); // eslint-disable-line no-console
@@ -157,7 +158,7 @@ const HomeNerdlet = () => {
   const selectHandler = iDoc =>
     navigation.openStackedNerdlet({
       id: 'detail',
-      urlState: { accountId, iDoc, timestamp: iDoc.timestamp }
+      urlState: { accountId, iDoc, timestamp: iDoc.timestamp },
     });
 
   if (accountId === 'cross-account')
@@ -203,7 +204,7 @@ const HomeNerdlet = () => {
             <IDocsList iDocs={filteredIDocs} selectHandler={selectHandler} />
           ) : (
             <EmptyState
-              title="No IDOCs to display"
+              title="Test No IDOCs to display"
               description="Try changing the filters or the time period."
             />
           )}
